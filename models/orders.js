@@ -2,7 +2,6 @@ const pool = require('../db');
 const moment = require('moment');
 const pgp = require('pg-promise')({capSQL: true});
 const OrderProduct = require('./orderproduct');
-const { objectTraps } = require('immer/dist/internal');
 
 module.exports = class OrderModel {
     constructor(data = {}) {
@@ -76,7 +75,7 @@ module.exports = class OrderModel {
         }
     }
 
-    static async findbyId(orderId) {
+    static async findById(orderId) {
         try {
 
             // Generate SQL statement

@@ -1,5 +1,5 @@
 const pool = require('../db');
-const pgp = require('pg-promise');
+const pgp = require('pg-promise')({ capSQL: true });
 
 module.exports = class CartProductModel {
 
@@ -43,11 +43,11 @@ module.exports = class CartProductModel {
         try {
           // Generate SQL
           const statement = `SELECT 
-                                ci.quantity,
-                                ci.id AS "cartItemId", 
+                                cp.quantity,
+                                cp.id AS "cartProductId", 
                                 p.*
-                             FROM "cart_product" ci
-                             INNER JOIN products p ON p.id = ci."product_id"
+                             FROM "cart_product" cp
+                             INNER JOIN products p ON p.id = cp."product_id"
                              WHERE "cart_id" = $1`
           const values = [cartId];
       

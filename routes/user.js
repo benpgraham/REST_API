@@ -1,59 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const pool = require("../db");
+const UserService = require('../services/userservices');
+
+const UserServiceInstance = new UserService();
 
 module.exports = (app) => {
 
-    app.use('/user', router);
+    app.use('/users', router);
 
-    router.get('/', async (req, res, next) => {
+    router.get('/:userId', async (req, res, next) => {
         try {
-            const response = await pool.query('SELECT * FROM users');
-            res.json(response.rows);
+            const { userId } = req.params;
+
+            const response = await UserServiceInstance.get({ id: userId });
+            res.status(200).send(response);
+
         } catch (err) {
-            console.error(err.message);
+            next(err);
         }
     });
 
-    router.get('/:id', async (req, res, next) => {
+    router.put('/:userId', async (req, res, next) => {
         try {
-            const { id } = req.params;
-            const response = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
-            res.json(response.rows);
-        } catch (err) {
-            console.error(err.message);
-        }
-    });
+            const { userId } = req.params;
+            const data = req.body;
 
-    router.put('/:id', async (req, res, next) => {
-        try {
-            const { id } = req.params;
-            const { email, password, first_name, last_name } = req.body;
-            if (email){
-                const updatedUser = await pool.query('UPDATE users SET email = $1 WHERE id = $2', [email, id]);
-            }
-            if (password){
-                const updatedUser = await pool.query('UPDATE users SET password = $1 WHERE id = $2', [password, id]);
-            }
-            if (first_name){
-                const updatedUser = await pool.query('UPDATE users SET first_name = $1 WHERE id = $2', [first_name, id]);
-            }
-            if (last_name){
-                const updatedUser = await pool.query('UPDATE users SET last_name = $1 WHERE id = $2', [last_name, id]);
-            }
-            res.json(`User ${id} updated`);
-        } catch (err) {
-            console.error(err.message);
-        }
-    });
+            const response = await UserServiceInstance.update({ id: userId, ...data });
 
-    router.delete('/:id', async (req, res, next) => {
-        try {
-            const { id } = req.params;
-            const deleteUser = await pool.query('DELETE FROM users WHERE id = $1', [id])
-            res.json(`User ${id} Deleted`);
+            res.status(200).send(response);
         } catch (err) {
-            console.error(err.message);
+            next(err);
         }
     });
 

@@ -12,9 +12,9 @@ module.exports = class CartModel {
 
     async create(userId) {
         try {
-            const data = { userId, ...this };
+            const data = { user_id: userId, ...this };
             // Generate SQL
-            const statement = pgp.helpers.insert(data, null, 'carts') = 'RETURNING *';
+            const statement = pgp.helpers.insert(data, null, 'carts') + 'RETURNING *';
             // Query database
             const result = await pool.query(statement);
 

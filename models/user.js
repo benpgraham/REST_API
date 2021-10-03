@@ -61,7 +61,7 @@ module.exports = class UserModel {
         }
     }
 
-    async findOneById(idl) {
+    async findOneById(id) {
         try {
             // Generate SQL
             const statement = 'SELECT * FROM users WHERE id = $1';

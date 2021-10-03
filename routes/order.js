@@ -1,18 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const pool = require("../db");
+
+const OrderService = require('../services/orderservices');
+const OrderServiceInstance = new OrderService();
 
 module.exports = (app) => {
 
-    app.use('/order', router);
+    app.use('/orders', router);
 
     router.get('/', async (req, res, next) => {
         try {
-            const response = await pool.query('SELECT * FROM orders');
-            res.json(response.rows);
+            const { id } = req.user;
+
+            const response = await OrderServiceInstance.list(id);
+            res.status(200).send(response);
         } catch (err) {
-            console.error(err.message);
+            next(err);
         }
-    })
+    });
+
+    router.get('/:orderId', async (req, res, next) => {
+        try {
+            const { orderId } = req.params;
+
+            const response = await OrderServiceInstance.findById(orderId);
+            res.status(200).send(response);
+        } catch (err) {
+            next(err);
+        }
+    });
 
 }

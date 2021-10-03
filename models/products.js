@@ -11,7 +11,7 @@ module.exports = class ProductModel {
             const result = await pool.query(statement, values);
 
             if(result.rows?.length){
-                return result.rows[0];
+                return result.rows;
             }
             
             return null;
@@ -28,6 +28,7 @@ module.exports = class ProductModel {
            const values = [id];
            // Query database
            const result = await pool.query(statement, values);
+           console.log(result.rows);
            
            if(result.rows?.length) {
                return result.rows[0];
