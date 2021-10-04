@@ -62,7 +62,7 @@ module.exports = (app, passport) => {
         }
     })
 
-    router.delete('/mine/items/:cartProductId', async (req, res, next) => {
+    router.delete('/mine/products/:cartProductId', async (req, res, next) => {
         try {
           const { cartProductId } = req.params;
         
