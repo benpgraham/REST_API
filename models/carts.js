@@ -7,7 +7,7 @@ module.exports = class CartModel {
         this.created = data.created || moment.utc().toISOString();
         this.modified = moment.utc().toISOString();
         this.converted = data.converted || null;
-        this.isActive = data.isActive || true;
+        this.is_active = data.isActive || true;
     }
 
     async create(userId) {
