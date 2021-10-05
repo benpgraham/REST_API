@@ -1,0 +1,349 @@
+swagger: "2.0"
+
+info:
+  description: "Codecademy e-commerce REST API"
+  version: "1.0.0"
+  title: "E-commerce REST API"
+
+schemes: 
+  - http
+
+host: localhost:3000
+
+basePath: "/"
+
+paths:
+  /auth/register:
+    post:
+      summary: "Register a new user"
+      description: "Register a new user"
+      produces:
+        - "application/json"
+      parameters:
+        - name: user
+          in: body
+          description: User login details
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password: 
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        409:
+          description: 409 Conflict
+          schema:
+            type: object
+            items:
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /auth/login:
+    post:
+      summary: "Login to a user account"
+      description: "Login to a user account"
+      produces:
+        - "application/json"
+      parameters:
+        - name: user
+          in: body
+          description: User login details
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password: 
+                type: string
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        401:
+          description: 401 Unauthorized
+          schema:
+            type: object
+            items:
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /users/{userId}:
+    get:
+      summary: "Get user record"
+      description: "Get user record"
+      produces:
+        - "application/json"
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Numeric ID of the user to get
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /users:
+    put:
+      summary: "Update user record"
+      description: "Update user record (requires logged in user)"
+      produces:
+        - "application/json"
+      parameters:
+        - name: user
+          in: body
+          description: User login details to be updated
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password: 
+                type: string
+              first_name:
+                type: string
+              last_name:
+                type: string
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          description: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /products:
+    get:
+      summary: Get a list of all products
+      description: Get a list of all products
+      produces:
+        - application/json
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /products/{productId}:
+    get:
+      summary: Get a single product
+      description: Get a single product
+      produces:
+        - application/json
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: Numeric ID of the product to get
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /orders:
+    get:
+      summary: Get a list of all orders
+      description: "Get a list of all orders (requires logged in user)"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /orders/{orderId}:
+    get:
+      summary: Get a single order
+      description: Get a single order
+      produces:
+        - application/json
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Numeric ID of the order to get
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /carts/mine:
+    get:
+      summary: Get the users cart
+      description: "Get the users cart (requires logged in user)"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+    post:
+      summary: Create a new cart for the user
+      description: "Create a new cart for the user (requires logged in user)"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /carts/mine/products:
+    post:
+      summary: Add product to cart
+      description: " Add product to cart (requires logged in user, product in req.body)"
+      produces:
+        - application/json
+      parameters:
+        - name: product
+          in: body
+          description: Product details to be added to cart
+          required: true
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: integer
+              quantity: 
+                type: integer
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+  /carts/mine/products/{cartProductId}:
+    put:
+      summary: Update product details in cart
+      description: "Update product details in cart (requires user to be logged in, update details in req.body)"
+      produces:
+        - application/json
+      parameters:
+        - name: cartProductId
+          in: path
+          required: true
+          description: Numeric ID of the product in the cart
+          schema:
+            type: integer
+        - name: product
+          in: body
+          description: Product details to be updated in cart
+          required: true
+          schema:
+            type: object
+            properties:
+              product_id:
+                type: integer
+              quantity: 
+                type: integer
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+    delete:
+      summary: Delete product details in cart
+      description: "Delete product details in cart (requires user to be logged in)"
+      produces:
+        - application/json
+      parameters:
+        - name: cartProductId
+          in: path
+          required: true
+          description: Numeric ID of the product in the cart
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+            items:
+        500:
+          descritpion: 500 Internal Server Error
+          schema:
+            type: object
+            items:
+
+        
+        

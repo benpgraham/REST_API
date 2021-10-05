@@ -46,7 +46,7 @@ module.exports = class CartService {
         }
     }
 
-    async removeItem(cartProductId) {
+    async removeProduct(cartProductId) {
         try {
             // Delete cart item
             const cartProduct = await CartProductModel.delete(cartProductId);
@@ -58,7 +58,7 @@ module.exports = class CartService {
         }
     }
 
-    async updateItem(cartProductId, data) {
+    async updateProduct(cartProductId, data) {
         try {
             // Update cart item
             const cartProduct = await CartProductModel.update(cartProductId, data);

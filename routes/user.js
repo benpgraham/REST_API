@@ -20,12 +20,12 @@ module.exports = (app) => {
         }
     });
 
-    router.put('/:userId', async (req, res, next) => {
+    router.put('/', async (req, res, next) => {
         try {
-            const { userId } = req.params;
+            const { id } = req.user;
             const data = req.body;
 
-            const response = await UserServiceInstance.update({ id: userId, ...data });
+            const response = await UserServiceInstance.update({ id, ...data });
 
             res.status(200).send(response);
         } catch (err) {
