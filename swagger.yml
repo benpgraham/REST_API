@@ -8,7 +8,7 @@ info:
 schemes: 
   - http
 
-host: https://rest-api-ecom-codecademy.herokuapp.com
+host: rest-api-ecom-codecademy.herokuapp.com
 
 basePath: "/"
 
