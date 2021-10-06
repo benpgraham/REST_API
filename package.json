@@ -8,7 +8,7 @@
     "npm": "7.20.1"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node -r dotenv/config your_script.js"
   },
   "author": "",
   "license": "ISC",
