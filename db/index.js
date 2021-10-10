@@ -10,7 +10,8 @@ const devConfig = {
 };
 
 const proConfig = {
-    connectionString: process.env.DATABASE_URL // Coming from heroku addon
+    connectionString: process.env.DATABASE_URL, // Coming from heroku addon
+    ssl: { rejectUnauthorized: false }
 };
 
 const pool = new Pool(process.env.NODE_ENV === 'production' ? proConfig : devConfig);
