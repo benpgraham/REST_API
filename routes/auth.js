@@ -33,4 +33,9 @@ module.exports = (app, passport) => {
     }
     );
 
+    router.get('/logout', (req, res) => {
+        req.logout();
+        res.redirect('/');
+    });
+
 }
