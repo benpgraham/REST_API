@@ -6,7 +6,7 @@ const AuthServiceInstance = new AuthService();
 
 module.exports = (app, passport) => {
 
-    app.use('api/auth', router);
+    app.use('/api/auth', router);
 
     router.post('/register', async (req, res, next) => {
         try {

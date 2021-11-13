@@ -6,7 +6,7 @@ const ProductServiceInstance = new ProductService();
 
 module.exports = (app) => {
 
-    app.use('api/products', router);
+    app.use('/api/products', router);
 
     router.get('/', async (req, res, next) => {
         try {
